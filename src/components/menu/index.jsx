@@ -4,66 +4,121 @@ import {
   AiOutlineAudit,
   AiOutlineDollarCircle,
   AiOutlineCaretLeft,
+  AiOutlineUsergroupAdd,
+  AiOutlineNotification,
+  AiOutlineFileAdd,
+  AiOutlineImport
 } from "react-icons/ai";
+
+import {
+  MdDriveFileRenameOutline
+} from "react-icons/md"
 
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 import ButtonMenu from "../buttonMenu";
-import { Container } from "./styles";
+import SubButtonMenu from "../subButtonMenu";
 
+import { Container, Logout } from "./styles";
 
 const Menu = () => {
-  
+
+  const [openDropdown, setOpenDropdown] = useState("");
   const [active, setActive] = useState(false);
   let navigate = useNavigate();
-  
+
   const Buttons = [
     {
-      icon: AiOutlineHome,
-      name: "Dashboard",
-      path: "/dashboard",
+      data: {
+        icon: AiOutlineHome,
+        name: "Dashboard",
+        path: "/dashboard",
+      },
     },
     {
-      icon: AiOutlineTeam,
-      name: "Usuários",
-      path: "/users",
-      dropdown: AiOutlineCaretLeft,
+      data: {
+        icon: AiOutlineTeam,
+        name: "Usuários",
+        path: "/users",
+        dropdown: AiOutlineCaretLeft,
+      },
+      subData: [
+        {
+          icon: AiOutlineUsergroupAdd,
+          name: "Criar usuários",
+        }
+      ],
     },
     {
-      icon: AiOutlineAudit,
-      name: "Escola",
-      path: "/school",
-      dropdown: AiOutlineCaretLeft,
+      data: {
+        icon: AiOutlineAudit,
+        name: "Escola",
+        path: "/school",
+        dropdown: AiOutlineCaretLeft,
+      },
+      subData: [
+        {
+          icon: AiOutlineNotification,
+          name: "Avisos",
+        },
+        {
+          icon: AiOutlineFileAdd,
+          name: "Criar avisos",
+        },
+        {
+          icon: MdDriveFileRenameOutline,
+          name: "Editar",
+        }
+      ],
     },
     {
-      icon: AiOutlineDollarCircle,
-      name: "Economia",
-      path: "/economy",
-      dropdown: AiOutlineCaretLeft,
+      data: {
+        icon: AiOutlineDollarCircle,
+        name: "Economia",
+        path: "/economy",
+        dropdown: AiOutlineCaretLeft,
+      },
     },
   ];
-  
+
   return (
     <Container active={active}>
-      <button
-        onClick={() => setActive((prev) => (prev == false ? true : false))}
-      >
-        abrir
-      </button>
-      
-      {Buttons.map((item, index) => {
-        return (
-          <ButtonMenu
-            key={index}
-            onAction={() => navigate(item.path)}
-            justifyContent={active == true ? "space-between" : "center"}
-            dropdown={active == true ? item.dropdown : null}
-            name={active == true ? item.name : null}
-            icon={item.icon}
-          />
-        );
-      })}
+      <span style={{width: "100%"}}>
+        {Buttons.map((item, index) => {
+          return (
+            <span key={index} style={{width: "100%"}}>
+              <ButtonMenu
+                onAction={() => {
+                  navigate(item.data.path)
+                  setActive(prev => !prev)
+                }}
+                justifyContent={active ? "space-between" : "center"}
+                dropdown={active ? item.data.dropdown : null}
+                name={active ? item.data.name : null}
+                icon={item.data.icon}
+                ActionDropdown={() => setOpenDropdown(prev => (prev === item.data.name ? "" : item.data.name))}
+              />
+              {openDropdown === item.data.name && item.subData && (
+                <span>
+                  {item.subData.map((subItem, subIndex) => (
+                    <SubButtonMenu
+                      key={subIndex}
+                      justifyContent={active ? "space-between" : "center"}
+                      name={active ? subItem.name : null}
+                      icon={subItem.icon}
+                    />
+                  ))}
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </span>
+      <Logout justifyContent={active ? "none" : "center"}>
+        <AiOutlineImport size={24} color="#fff" />
+        {active ? "Sair" : null}
+      </Logout>
     </Container>
   );
 };
