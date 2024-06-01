@@ -1,5 +1,5 @@
 import Layout from "../../components/layout";
-import React from "react";
+import React, { useState } from "react";
 import { Container, Box, Items } from "./styles";
 import { AiOutlineUser, AiOutlineRocket, AiOutlineTool } from "react-icons/ai";
 import FilterButtons from "../../components/filterButtons";
@@ -35,6 +35,7 @@ const Users = () => {
     },
   ];
 
+  const [selected, setSelected] = useState(undefined)
   return (
     <Layout>
       <Container>
@@ -42,7 +43,7 @@ const Users = () => {
           <SearchBar />
           <section>
             {dataFilter.map((item, index) => {
-              return <FilterButtons name={item?.name} key={index} />;
+              return <FilterButtons select={ selected } onAction={() => setSelected((prev) => prev == item?.name ? undefined : item?.name)} name={item?.name} key={index} />;
             })}
           </section>
           <Items>

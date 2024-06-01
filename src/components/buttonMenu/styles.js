@@ -32,7 +32,7 @@ export const Container = styled.div`
 
 export const DropdownBox = styled.button`
   background-color: transparent;
-  padding-right: 15px;
+  padding: 0 15px;
   cursor: pointer;
   height: 100%;
   border: none;

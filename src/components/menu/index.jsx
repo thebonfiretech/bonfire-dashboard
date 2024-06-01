@@ -45,6 +45,7 @@ const Menu = () => {
         {
           icon: AiOutlineUsergroupAdd,
           name: "Criar usuários",
+          path: "/createUser"
         },
       ],
     },
@@ -117,6 +118,7 @@ const Menu = () => {
                 <span>
                   {item.subData.map((subItem, subIndex) => (
                     <SubButtonMenu
+                      onAction={() => navigate(subItem?.path)}
                       key={subIndex}
                       justifyContent={active ? "space-between" : "center"}
                       name={active ? subItem.name : null}

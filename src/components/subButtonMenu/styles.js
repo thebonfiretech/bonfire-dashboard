@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
 padding-left: ${({justifyContent}) => justifyContent == "space-between" ? "40px" : "0"};
 justify-content: ${({justifyContent}) => justifyContent};
-color: ${({theme}) => theme.colors.text};
+color: ${({theme}) => theme.colors.secondaryText};
 transition: all .3s ease-in-out;
 box-sizing: border-box;
 align-items: center;

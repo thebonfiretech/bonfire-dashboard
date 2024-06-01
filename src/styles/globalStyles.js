@@ -1,10 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 
+
 const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+   font-family: "Inter", sans-serif;
+  
   font-size: 16px;
  scroll-behavior: smooth;
 }
@@ -12,7 +16,7 @@ p, a, h1 {
   color: ${({theme}) => theme.colors.text};
 }
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Inter", sans-serif;
   background: ${({theme}) => theme.colors.background};
 
 }

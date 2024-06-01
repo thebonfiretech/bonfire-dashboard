@@ -9,22 +9,29 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
+  justify-content: center;
   flex-direction: column;
+  align-items: center;
   display: flex;
-  height: 60%;
+  height: 75%;
   width: 75%;
   gap: 30px;
 
   @media (max-width: 678px) {
     width: 90%;
+    padding-top: 50px;
   }
 
   & > section {
     justify-content: center;
     flex-direction: row;
     display: flex;
-    width: 100%;
+    width: 75%;
     gap: 15px;
+
+    @media (max-width: 678px) {
+      width: 100%;
+    }
   }
 `;
 

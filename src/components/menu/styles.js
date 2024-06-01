@@ -5,6 +5,7 @@ background-color: ${({theme}) => theme.colors.secondaryBackground};
 width: ${({active}) => active == false ? "75px" : "250px"};
 transition: all .3s ease-in-out;
 justify-content: space-between;
+z-index: 10;
 flex-direction: column;
 box-sizing: border-box;
 align-items: center;
@@ -50,8 +51,8 @@ export const MobileMenu = styled.button`
   display: none; 
   
 @media (max-width: 678px) {
-  width: ${({active}) => active == false ? "100%" : "50px"};
   height: ${({active}) => active == false ? "100%" : "50px"};
+  width: ${({active}) => active == false ? "100%" : "50px"};
   justify-content: center;
   background: transparent;
   align-items: center;
