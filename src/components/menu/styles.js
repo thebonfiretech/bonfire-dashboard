@@ -4,15 +4,22 @@ export const Container = styled.div`
 background-color: ${({theme}) => theme.colors.secondaryBackground};
 width: ${({active}) => active == false ? "75px" : "250px"};
 transition: all .3s ease-in-out;
+justify-content: space-between;
 flex-direction: column;
 box-sizing: border-box;
 align-items: center;
-justify-content: space-between;
 padding: 50px 10px;
 position: fixed;
 display: flex;
 height: 100vh;
 gap: 5px;
+
+@media (max-width: 678px) {
+  margin: ${({active}) => active == false ? "5%" : "0"};
+  width: ${({active}) => active == false ? "50px" : "100vw"};
+  height: ${({active}) => active == false ? "50px" : "100vh"};
+  padding: ${({active}) => active == false ? "0" : "50px 10px"};
+}
 `
 
 export const Logout = styled.button`
@@ -31,7 +38,25 @@ border: none;
 width: 100%;
 gap: 15px;
 
+@media (max-width: 678px) {
+  display: ${({active}) => active == false ? "none" : "flex"};
+}
 &:hover {
 background-color: #404040;
+}
+`
+
+export const MobileMenu = styled.button`
+  display: none; 
+  
+@media (max-width: 678px) {
+  width: ${({active}) => active == false ? "100%" : "50px"};
+  height: ${({active}) => active == false ? "100%" : "50px"};
+  justify-content: center;
+  background: transparent;
+  align-items: center;
+  outline: none;
+  display: flex;
+  border: none;
 }
 `

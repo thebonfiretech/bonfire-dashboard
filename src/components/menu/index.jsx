@@ -7,12 +7,11 @@ import {
   AiOutlineUsergroupAdd,
   AiOutlineNotification,
   AiOutlineFileAdd,
-  AiOutlineImport
+  AiOutlineClose,
+  AiOutlineImport,
 } from "react-icons/ai";
 
-import {
-  MdDriveFileRenameOutline
-} from "react-icons/md"
+import { MdDriveFileRenameOutline, MdOutlineSegment } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -20,10 +19,9 @@ import React, { useState } from "react";
 import ButtonMenu from "../buttonMenu";
 import SubButtonMenu from "../subButtonMenu";
 
-import { Container, Logout } from "./styles";
+import { Container, Logout, MobileMenu } from "./styles";
 
 const Menu = () => {
-
   const [openDropdown, setOpenDropdown] = useState("");
   const [active, setActive] = useState(false);
   let navigate = useNavigate();
@@ -47,7 +45,7 @@ const Menu = () => {
         {
           icon: AiOutlineUsergroupAdd,
           name: "Criar usuários",
-        }
+        },
       ],
     },
     {
@@ -69,7 +67,7 @@ const Menu = () => {
         {
           icon: MdDriveFileRenameOutline,
           name: "Editar",
-        }
+        },
       ],
     },
     {
@@ -84,20 +82,36 @@ const Menu = () => {
 
   return (
     <Container active={active}>
-      <span style={{width: "100%"}}>
+      <span style={{ width: "100%", height: "100%" }}>
+        <MobileMenu active={active} onClick={() => setActive((prev) => !prev)}>
+          {active == false ? (
+            <MdOutlineSegment
+              style={{ transform: "rotate(180deg)" }}
+              size={24}
+              color="#fff"
+            />
+          ) : (
+            <AiOutlineClose size={24} color="#fff" />
+          )}
+        </MobileMenu>
         {Buttons.map((item, index) => {
           return (
-            <span key={index} style={{width: "100%"}}>
+            <span key={index} style={{ width: "100%" }}>
               <ButtonMenu
+                active={active}
                 onAction={() => {
-                  navigate(item.data.path)
-                  setActive(prev => !prev)
+                  navigate(item.data.path);
+                  setActive((prev) => !prev);
                 }}
                 justifyContent={active ? "space-between" : "center"}
                 dropdown={active ? item.data.dropdown : null}
                 name={active ? item.data.name : null}
                 icon={item.data.icon}
-                ActionDropdown={() => setOpenDropdown(prev => (prev === item.data.name ? "" : item.data.name))}
+                ActionDropdown={() =>
+                  setOpenDropdown((prev) =>
+                    prev === item.data.name ? "" : item.data.name,
+                  )
+                }
               />
               {openDropdown === item.data.name && item.subData && (
                 <span>
@@ -115,7 +129,7 @@ const Menu = () => {
           );
         })}
       </span>
-      <Logout justifyContent={active ? "none" : "center"}>
+      <Logout active={active} justifyContent={active ? "none" : "center"}>
         <AiOutlineImport size={24} color="#fff" />
         {active ? "Sair" : null}
       </Logout>

@@ -14,6 +14,9 @@ export const Container = styled.div`
   height: 50px;
   width: 100%;
 
+@media (max-width: 678px) {
+  display: ${({active}) => active == false ? "none" : "flex"};
+}
   &:hover {
   background-color: #404040;
   }
