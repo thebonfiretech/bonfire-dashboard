@@ -14,14 +14,14 @@ const Error = () => {
         <Container>
             <Box>
                 <Position1>
-                    <Icon className='icon'>
+                    <Icon>
                         <AiOutlineClose size={30} color='#fff'/>
                     </Icon>
                 </Position1>
                 <h1>Oops!</h1>
                 <Message>
                 <Position2>
-                    <Icon className='icon'>
+                    <Icon>
                         <AiOutlineClose size={30} color='#fff'/>
                     </Icon>
                 </Position2>
@@ -29,7 +29,7 @@ const Error = () => {
                 </Message>
                 <Button name='TENTE NOVAMENTE' onAction={cameBack}/>
                     <Position3>
-                        <Icon className='icon'>
+                        <Icon>
                             <AiOutlineClose size={30} color='#fff'/>
                         </Icon>
                     </Position3>
