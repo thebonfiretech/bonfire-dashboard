@@ -18,13 +18,13 @@ import CreateUser from "../pages/createUser";
           <Route path="*" element={<Navigate to="/404" replace/>}/>
           <Route path="/404" element={<Error />}/>
           <Route path="/" element={<Login />}/>
-          <Route path="/school" element={<School />}/>
-          <Route path="/users" element={<Users />}/>
-          <Route path="/createUser" element={<CreateUser />}/>
+          <Route path="/school/:id?" element={<School />}/>
+          <Route path="/users/:id?" element={<Users />}/>
+          <Route path="/createUser?" element={<CreateUser />}/>
           <Route path="/users/edit/:id?" element={<EditUser />}/>
-          <Route path="/economy" element={<Economy />}/>
-          <Route path="/dashboard" element={<Dashboard />}/>
-          <Route path="/schoolSelect" element={<SchoolSelect />}/>
+          <Route path="/economy/:id?" element={<Economy />}/>
+          <Route path="/dashboard/:id?" element={<Dashboard />}/>
+          <Route path="/schoolSelect/:id?" element={<SchoolSelect />}/>
         </Routes>
       </BrowserRouter>
     )
