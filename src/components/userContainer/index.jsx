@@ -4,7 +4,7 @@ import {MdDriveFileRenameOutline, MdDeleteOutline} from 'react-icons/md';
 
 import {Container, UserInformation, ButtonIcon, ControlPanel, Button} from './styles';
 
-const UserContainer = ({name, onUpdate, iconType: IconType}) => {
+const UserContainer = ({name, onUpdate, onDelete, iconType: IconType}) => {
   const iconSize = window.innerWidth <= 678 ? 21 : 24;
   return(
     <>
@@ -15,7 +15,7 @@ const UserContainer = ({name, onUpdate, iconType: IconType}) => {
         </UserInformation>
        <ControlPanel>
            <Button onClick={onUpdate}><MdDriveFileRenameOutline color='#fff' size={iconSize}/></Button>
-         <Button onClick={() => onAction()}><MdDeleteOutline color='#fff' size={iconSize}/></Button>
+         <Button onClick={onDelete}><MdDeleteOutline color='#fff' size={iconSize}/></Button>
        </ControlPanel>
       </Container>
     </>
