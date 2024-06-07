@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import FilterButtons from "../../components/filterButtons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserNav from "../../components/userNav";
 import Layout from "../../components/layout";
 import Button from "../../components/button";
 import Label from "../../components/label";
 import Input from "../../components/input";
+import Loader from '../../components/loader';
+import Actions from "../../actions/admin/user";
+import Alert from "../../components/alert";
 
 import {
   Container,
@@ -17,18 +20,63 @@ import {
 } from "./styles";
 
 const EditUser = () => {
-  
-  const [selected, setSelected] = useState(undefined)
-  const [selected2, setSelected2] = useState(undefined)
-  
-  const navigate = useNavigate();
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const response = await Actions.get(id);
+        
+          setRemoveLoading(true);
+          setUser(response),
+          setName(response?.name),
+          setSchool(response?.school),
+          setCoins(response?.coins),
+          setSelected(response?.role),
+          setSelected2(response?.status);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    get();
+  }, []);
+
+  const update = async (id, data) => {
+    try {
+      await Actions.update(id, data).then(() =>
+      setAlert({
+        icon: "success",
+        title: "Usuário atualizado com sucesso",
+        confirm: false,
+      })
+        ).catch(() =>
+        setAlert({
+          icon: "error",
+          title: "Erro ao atualizar usuário",
+          confirm: true,
+        }))
+   
+    } catch (error) {
+      
+    }
+  };
+
+  const [user, setUser] = useState(undefined);
+  let { id } = useParams();
+
+  const [name, setName] = useState("");
+  const [school, setSchool] = useState("");
+  const [selected, setSelected] = useState(undefined);
+  const [selected2, setSelected2] = useState(undefined);
+  const [coins, setCoins] = useState(0);
+  const [removeLoading, setRemoveLoading] = useState(false);
+  const [alert, setAlert] = useState(undefined);
 
   const dataPeople = [
     {
-      name: "aluno",
+      name: "normal",
     },
     {
-      name: "responsável",
+      name: "administrador",
     },
     {
       name: "professor",
@@ -47,8 +95,19 @@ const EditUser = () => {
     },
   ];
 
+  class User {
+    constructor({ school, name, coins }) {
+      this.school = school;
+      this.name = name;
+      this.role = selected;
+      this.status = selected2;
+      this.coins = coins;
+    }
+  }
+
+  const navigate = useNavigate();
+
   const cameBack = () => {
-    localStorage.clear();
     navigate("/users");
   };
 
@@ -56,7 +115,7 @@ const EditUser = () => {
     <Layout>
       <Container>
         <NavContainer>
-          <UserNav onAction={cameBack} name="Carlos Josep" />
+          <UserNav onAction={cameBack} name={user?.name} />
         </NavContainer>
         <Box>
           <Label name="Tipo da conta" />
@@ -65,11 +124,11 @@ const EditUser = () => {
               return (
                 <FilterButtons
                   select={selected}
-                   onAction={() =>
-                     setSelected((prev) =>
-                       prev == item?.name ? undefined : item?.name,
-                     )
-                   }
+                  onAction={() => {
+                    setSelected((prev) =>
+                      prev == item?.name ? undefined : item?.name,
+                    );
+                  }}
                   name={item?.name}
                   key={index}
                 />
@@ -82,11 +141,11 @@ const EditUser = () => {
               return (
                 <FilterButtons
                   select={selected2}
-                   onAction={() =>
-                     setSelected2((prev) =>
-                       prev == item?.name ? undefined : item?.name,
-                     )
-                   }
+                  onAction={() =>
+                    setSelected2((prev) =>
+                      prev == item?.name ? undefined : item?.name,
+                    )
+                  }
                   name={item?.name}
                   key={index}
                 />
@@ -94,17 +153,43 @@ const EditUser = () => {
             })}
           </IndicatorsContainer>
 
-            <Label name="Email" />
-            <Input placeholder="joaovitor@gmail.com" value=''/>
-            <Label name="Nome" />
-            <Input placeholder="João Vitor Dutra de Souza" value=''/>
-            <Label name="Carteira" />
-            <Input placeholder="15 gentilezas" value=''/>
+          <Label name="Escola" />
+          <Input
+            onChange={(value) => setSchool(value)}
+            placeholder={user?.school || ""}
+          />
+          <Label name="Nome" />
+          <Input
+            onChange={(value) => setName(value)}
+            placeholder={user?.name || ""}
+          />
+          <Label name="Carteira" />
+          <Input
+            onChange={(value) => setCoins(value)}
+            placeholder={user?.coins || "0"}
+          />
           <ButtonContainer>
-            <Button name="Atualizar" />
+            <Button
+              name="Atualizar"
+              onAction={() => {
+                const userUpdate = new User({
+                  school,
+                  name,
+                  selected,
+                  selected2,
+                  coins,
+                });
+
+                update(id, userUpdate);
+              }}
+            />
           </ButtonContainer>
         </Box>
       </Container>
+      {alert && (
+        <Alert icon={alert.icon} title={alert.title} confirm={alert.confirm} />
+      )}
+       {!removeLoading && <Loader />}
     </Layout>
   );
 };
