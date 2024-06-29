@@ -22,7 +22,6 @@ const getAll = async () => {
 const post = async (data) => {
   try {
     await api.post("admin/user/create", data);
-    window.location.href = "/users";
   } catch (error) {
     console.error("erro");
   }
@@ -34,7 +33,6 @@ const update = async (id, data) => {
       id: id,
       data: data,
     });
-    window.location.href = "/users";
   } catch (error) {
     return error;
   }
@@ -42,7 +40,7 @@ const update = async (id, data) => {
 
 const deleteUser = async (id) => {
   try {
-    await api.delete("admin/user/delete", { data: { id: id } }).then(() => location.reload());
+    await api.delete("admin/user/delete", { data: { id: id } });
   } catch (error) {
     return error;
   }

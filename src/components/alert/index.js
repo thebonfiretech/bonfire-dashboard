@@ -23,7 +23,7 @@ const Alert = ({ icon, title, confirm, cancel, timer, onConfirm, onCancel }) => 
       onConfirm();
       Swal.fire({
         title: 'Deletado!',
-        text: 'Seu arquivo foi deletado.',
+        text: 'Usuário deletado com sucesso.',
         icon: 'success',
         background: '#363636',
         color: "#EEEEEE",

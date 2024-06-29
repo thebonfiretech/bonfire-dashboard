@@ -16,9 +16,12 @@ import styled from 'styled-components'
       border: none;
       height: 50px;
 
+      
+
 
     @media (max-width: 678px) {
       font-size: 13px;
       height: 50px;
+     
     }
   `

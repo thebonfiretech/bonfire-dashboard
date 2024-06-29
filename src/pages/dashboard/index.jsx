@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import Layout from "../../components/layout";
 
 const Dashboard = () => {
-  useEffect(() => {
-   const token = localStorage.getItem("token")
-      if(!token) {
-        navigate("/") 
-        return
-      }
-  }, []);
+  
   
   return (
     <Layout>

@@ -16,6 +16,7 @@ const Users = () => {
   const [search, setSearch] = useState("");
   const [removeLoading, setRemoveLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [alert, setAlert] = useState(undefined);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,19 +39,23 @@ const Users = () => {
   }, []);
 
   
-const [alert, setAlert] = useState(undefined);
 
   const deleteUser = async (id) => {
 
     try {
       await Actions.deleteUser(id);
+      setAlert(undefined)
+      const response = await Actions.getAll();
+      setUsers(response);
+      
+      
     } catch (error) {
       console.log(error);
     }
   };
 
   const confirmDeleteUser = (id) => {
-    if (!alert) {
+    
       setAlert({
         icon: "info",
         title: "Deseja Deletar este usuário?",
@@ -60,7 +65,7 @@ const [alert, setAlert] = useState(undefined);
         onConfirm: () => deleteUser(id),
         onCancel: () => setAlert(undefined),
       });
-    }
+    
   };
 
   const dataFilter = [

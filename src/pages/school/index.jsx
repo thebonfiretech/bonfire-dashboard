@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import Indicators from "../../components/indicators";
 import { useNavigate } from "react-router-dom";
@@ -19,8 +19,9 @@ import {
 
 const School = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
 
-  const dataIndicators = [
+ const dataIndicators = [
     {
       name: "alunos",
       numbers: "600",
@@ -36,7 +37,6 @@ const School = () => {
   ];
 
   const cameBack = () => {
-    localStorage.clear();
     navigate("/dashboard");
   };
 
@@ -61,7 +61,7 @@ const School = () => {
           </IndicatorsContainer>
           <InputsContainer>
             <Label name="lorem ipsum" />
-            <Input placeholder="lorem ipusum" />
+            <Input placeholder="lorem ipusum" onChange={(value) => setName(value)}/>
             <Label name="lorem ipsum" />
             <Input placeholder="lorem ipusum" />
           </InputsContainer>

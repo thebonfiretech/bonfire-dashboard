@@ -7,7 +7,6 @@ const login = async (user) => {
     const response = await api.post("user/auth/signin", user)
     const token = response.data.token;
     setAuthToken(token);
-    window.location.href = "/dashboard"
   }
   catch (error) {
     return error

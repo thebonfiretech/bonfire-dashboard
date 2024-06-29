@@ -7,7 +7,7 @@ import Layout from "../../components/layout";
 import Button from "../../components/button";
 import Label from "../../components/label";
 import Input from "../../components/input";
-import Loader from '../../components/loader';
+import Loader from "../../components/loader";
 import Actions from "../../actions/admin/user";
 import Alert from "../../components/alert";
 
@@ -20,56 +20,17 @@ import {
 } from "./styles";
 
 const EditUser = () => {
-  useEffect(() => {
-    const get = async () => {
-      try {
-        const response = await Actions.get(id);
-        
-          setRemoveLoading(true);
-          setUser(response),
-          setName(response?.name),
-          setSchool(response?.school),
-          setCoins(response?.coins),
-          setSelected(response?.role),
-          setSelected2(response?.status);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    get();
-  }, []);
-
-  const update = async (id, data) => {
-    try {
-      await Actions.update(id, data).then(() =>
-      setAlert({
-        icon: "success",
-        title: "Usuário atualizado com sucesso",
-        confirm: false,
-      })
-        ).catch(() =>
-        setAlert({
-          icon: "error",
-          title: "Erro ao atualizar usuário",
-          confirm: true,
-        }))
-   
-    } catch (error) {
-      
-    }
-  };
-
-  const [user, setUser] = useState(undefined);
   let { id } = useParams();
 
-  const [name, setName] = useState("");
-  const [school, setSchool] = useState("");
-  const [selected, setSelected] = useState(undefined);
-  const [selected2, setSelected2] = useState(undefined);
-  const [coins, setCoins] = useState(0);
   const [removeLoading, setRemoveLoading] = useState(false);
+  const [selected2, setSelected2] = useState(undefined);
+  const [selected, setSelected] = useState(undefined);
   const [alert, setAlert] = useState(undefined);
+  const [user, setUser] = useState(undefined);
+  const [school, setSchool] = useState("");
+  const [coins, setCoins] = useState(0);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const dataPeople = [
     {
@@ -105,7 +66,50 @@ const EditUser = () => {
     }
   }
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const get = async () => {
+      try {
+        const response = await Actions.get(id);
+
+        setRemoveLoading(true);
+        setUser(response),
+          setName(response?.name),
+          setSchool(response?.school),
+          setCoins(response?.coins),
+          setSelected(response?.role),
+          setSelected2(response?.status);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    get();
+  }, []);
+
+  const update = async (id, data) => {
+    try {
+      await Actions.update(id, data)
+        .then(() => {
+           setAlert({
+            icon: "success",
+            title: "Usuário atualizado com sucesso",
+            timer: 1500,
+            confirm: false,
+          });
+          setTimeout(() => {
+          navigate("/users");
+          }, 1500)
+        })
+        .catch(() =>
+          setAlert({
+            icon: "error",
+            title: "Erro ao atualizar usuário",
+            timer: 1500,
+            confirm: true,
+          }),
+        );
+    } catch (error) {}
+  };
 
   const cameBack = () => {
     navigate("/users");
@@ -187,9 +191,9 @@ const EditUser = () => {
         </Box>
       </Container>
       {alert && (
-        <Alert icon={alert.icon} title={alert.title} confirm={alert.confirm} />
+        <Alert icon={alert.icon} timer={alert.timer} title={alert.title} confirm={alert.confirm} />
       )}
-       {!removeLoading && <Loader />}
+      {!removeLoading && <Loader />}
     </Layout>
   );
 };

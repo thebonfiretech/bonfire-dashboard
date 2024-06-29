@@ -16,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [alert, setAlert] = useState(undefined);
+  const navigate = useNavigate()
 
   class User {
     constructor(id, password) {
@@ -41,6 +42,7 @@ const Login = () => {
 
     try {
       await ActionsBase.login(user)
+      navigate("/dashboard")
     } catch (error) {
       console.error(error);
     }

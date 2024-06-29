@@ -1,4 +1,4 @@
 export default {
     pageTitle: "Bonfire",
-    baseURL: "" 
+    baseURL: "https://api.thebonfire.tech/v1/" 
 }
