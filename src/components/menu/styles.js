@@ -50,14 +50,14 @@ background-color: #404040;
 export const MobileMenu = styled.button`
   display: none; 
   
-@media (max-width: 678px) {
-  height: ${({active}) => active == false ? "100%" : "50px"};
-  width: ${({active}) => active == false ? "100%" : "50px"};
+
+  height: 50px;
+  width: 50px;
   justify-content: center;
   background: transparent;
   align-items: center;
   outline: none;
   display: flex;
   border: none;
-}
+
 `

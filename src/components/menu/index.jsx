@@ -12,18 +12,18 @@ import {
 } from "react-icons/ai";
 
 import { MdDriveFileRenameOutline, MdOutlineSegment } from "react-icons/md";
-
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import ButtonMenu from "../buttonMenu";
 import SubButtonMenu from "../subButtonMenu";
-
 import { Container, Logout, MobileMenu } from "./styles";
 
 const Menu = () => {
   const [openDropdown, setOpenDropdown] = useState("");
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(() => {
+    return false;
+  });
+  
   let navigate = useNavigate();
 
   const Buttons = [
@@ -45,7 +45,7 @@ const Menu = () => {
         {
           icon: AiOutlineUsergroupAdd,
           name: "Criar usuários",
-          path: "/createUser"
+          path: "/createUser",
         },
       ],
     },
@@ -80,6 +80,10 @@ const Menu = () => {
       },
     },
   ];
+
+  useEffect(() => {
+    if(active === false) setOpenDropdown("");
+  },[active])
 
   return (
     <Container active={active}>
@@ -131,7 +135,13 @@ const Menu = () => {
           );
         })}
       </span>
-      <Logout active={active} justifyContent={active ? "none" : "center"}>
+      <Logout
+        onClick={() => {
+          localStorage.removeItem("token"), navigate("/");
+        }}
+        active={active}
+        justifyContent={active ? "none" : "center"}
+      >
         <AiOutlineImport size={24} color="#fff" />
         {active ? "Sair" : null}
       </Logout>
