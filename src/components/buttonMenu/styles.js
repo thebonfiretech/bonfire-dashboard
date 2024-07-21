@@ -1,10 +1,20 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding-left: ${({ justifyContent }) =>
-  justifyContent == "space-between" ? "15px" : "0"};
-  justify-content: ${({ justifyContent }) => justifyContent};
+  ${({active}) => 
+    active ? 
+    `
+    justify-content: space-between;
+    padding-left: 15px;
+    `
+    : 
+    `justify-content: center;
+    padding-left: 0;
+    `
+  }
+
   color: ${({ theme }) => theme.colors.text};
+  
   transition: all 0.3s ease-in-out;
   box-sizing: border-box;
   align-items: center;
@@ -15,7 +25,6 @@ export const Container = styled.div`
   width: 100%;
 
 @media (max-width: 678px) {
-  display: ${({active}) => active == false ? "none" : "flex"};
 }
   &:hover {
   background-color: #404040;
@@ -23,9 +32,10 @@ export const Container = styled.div`
   
   & > span {
   justify-content: center;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   align-items: center;
   display: flex;
+  font-size: 16px;
   gap: 15px;
   }
 `;

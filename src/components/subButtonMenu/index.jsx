@@ -1,8 +1,10 @@
 import { Container } from './styles'
 
-const SubButtonMenu = ({icon: Icon, name, justifyContent, onAction}) => {
+const SubButtonMenu = ({icon: Icon, name, active, onAction}) => {
   return (
-    <Container onClick={onAction} justifyContent={justifyContent}><span>{Icon && <Icon size={24} color={"#A7A6A6"}/>}{name}  </span> 
+    <Container onClick={onAction} active={active}><span><Icon size={24} color={"#A7A6A6"} />
+      
+    {active == true ? name : ""}</span>
     </Container>
   )
 }

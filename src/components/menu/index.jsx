@@ -3,7 +3,7 @@ import {
   AiOutlineTeam,
   AiOutlineAudit,
   AiOutlineDollarCircle,
-  AiOutlineCaretLeft,
+
   AiOutlineUsergroupAdd,
   AiOutlineNotification,
   AiOutlineFileAdd,
@@ -12,39 +12,50 @@ import {
 } from "react-icons/ai";
 
 import { MdDriveFileRenameOutline, MdOutlineSegment } from "react-icons/md";
+import { AiOutlineLeft } from 'react-icons/ai'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ButtonMenu from "../buttonMenu";
 import SubButtonMenu from "../subButtonMenu";
-import { Container, Logout, MobileMenu } from "./styles";
+import LogoContainer from "../logoContainer";
+import { Container, Logout, OpenMenu } from "./styles";
 
 const Menu = () => {
-  const [openDropdown, setOpenDropdown] = useState("");
-  const [active, setActive] = useState(() => {
-    return false;
-  });
-  
-  let navigate = useNavigate();
+
+  const navigate = useNavigate()
+
+  const initialIsOpen = localStorage.getItem("isOpen") === "true";
+  const [openMenu, setOpenMenu] = useState(initialIsOpen);
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
+  const [openDropdown, setOpenDropdown] = useState(undefined)
+
+
+  useEffect(() => {
+    setIsOpen(openMenu);
+    localStorage.setItem("isOpen", openMenu.toString());
+  }, [openMenu]);
+
+
+  const handleClickMenu = () => {
+    setOpenMenu(prev => !prev);
+  };
+
 
   const Buttons = [
     {
       data: {
-        icon: AiOutlineHome,
-        name: "Dashboard",
-        path: "/dashboard",
-      },
-    },
-    {
-      data: {
         icon: AiOutlineTeam,
         name: "Usuários",
-        path: "/users",
-        dropdown: AiOutlineCaretLeft,
       },
       subData: [
         {
+          icon: AiOutlineTeam,
+          name: "Criar Usuário",
+          path: "/users",
+        },
+        {
           icon: AiOutlineUsergroupAdd,
-          name: "Criar usuários",
+          name: "Ver Usuários",
           path: "/createUser",
         },
       ],
@@ -53,17 +64,19 @@ const Menu = () => {
       data: {
         icon: AiOutlineAudit,
         name: "Escola",
-        path: "/school",
-        dropdown: AiOutlineCaretLeft,
       },
       subData: [
+        {
+          icon: AiOutlineAudit,
+          name: "Ver Escola",
+        },
         {
           icon: AiOutlineNotification,
           name: "Avisos",
         },
         {
           icon: AiOutlineFileAdd,
-          name: "Criar avisos",
+          name: "Criar",
         },
         {
           icon: MdDriveFileRenameOutline,
@@ -75,78 +88,89 @@ const Menu = () => {
       data: {
         icon: AiOutlineDollarCircle,
         name: "Economia",
-        path: "/economy",
-        dropdown: AiOutlineCaretLeft,
       },
+      subData: [
+        {
+          icon: AiOutlineDollarCircle,
+          name: "Economia",
+          path: "/economy",
+        },
+
+      ],
     },
   ];
 
-  useEffect(() => {
-    if(active === false) setOpenDropdown("");
-  },[active])
-
   return (
-    <Container active={active}>
-      <span style={{ width: "100%", height: "100%" }}>
-        <MobileMenu active={active} onClick={() => setActive((prev) => !prev)}>
-          {active == false ? (
-            <MdOutlineSegment
-              style={{ transform: "rotate(180deg)" }}
-              size={24}
-              color="#fff"
-            />
-          ) : (
-            <AiOutlineClose size={24} color="#fff" />
-          )}
-        </MobileMenu>
-        {Buttons.map((item, index) => {
+    <Container isOpen={isOpen}>
+      <section>
+      <OpenMenu isOpen={isOpen} onClick={handleClickMenu} >
+        <LogoContainer height="50px" width="50px"/>
+         {
+          isOpen && <>
+          <h1>Bonfire Tech</h1>
+          <AiOutlineLeft color={"#FFFFFF"}/>
+          </>
+         }
+        
+      
+      </OpenMenu>
+      <ButtonMenu
+        active={isOpen}
+        name="Dashboard"
+        icon={AiOutlineHome}
+        onAction={() => navigate("/dashboard")} />
+      {
+        Buttons.map((item, index) => {
           return (
-            <span key={index} style={{ width: "100%" }}>
+            <section key={index}>
               <ButtonMenu
-                active={active}
-                onAction={() => {
-                  navigate(item.data.path);
-                  setActive((prev) => !prev);
-                }}
-                justifyContent={active ? "space-between" : "center"}
-                dropdown={active ? item.data.dropdown : null}
-                name={active ? item.data.name : null}
+                onAction={() => setOpenDropdown(prev => prev == item.data.name ? undefined : item?.data?.name)}
+                open={item.data.name == openDropdown ? true : false}
+                active={isOpen}
+                dropdown={true}
                 icon={item.data.icon}
-                ActionDropdown={() =>
-                  setOpenDropdown((prev) =>
-                    prev === item.data.name ? "" : item.data.name,
-                  )
-                }
+                name={item.data.name}
               />
-              {openDropdown === item.data.name && item.subData && (
-                <span>
-                  {item.subData.map((subItem, subIndex) => (
+              {
+                openDropdown == item.data.name ? item?.subData?.map((subItem, subIndex) => {
+                  return (
                     <SubButtonMenu
                       onAction={() => navigate(subItem?.path)}
-                      key={subIndex}
-                      justifyContent={active ? "space-between" : "center"}
-                      name={active ? subItem.name : null}
+                      active={isOpen}
                       icon={subItem.icon}
-                    />
-                  ))}
-                </span>
-              )}
-            </span>
-          );
-        })}
-      </span>
-      <Logout
+                      name={subItem.name}
+                      key={subIndex} />
+                  )
+                }) : ""
+              }
+            </section>
+          )
+        })
+      }
+</section>
+<section>
+
+<Logout
         onClick={() => {
           localStorage.removeItem("token"), navigate("/");
         }}
-        active={active}
-        justifyContent={active ? "none" : "center"}
-      >
-        <AiOutlineImport size={24} color="#fff" />
-        {active ? "Sair" : null}
+        isOpen={isOpen}
+        >
+        <AiOutlineImport size={20} color="#fff" />
+        {
+          isOpen ? "Sair" : ""
+        }
       </Logout>
+        </section>
+
     </Container>
   );
 };
 
 export default Menu;
+
+/*
+
+
+ 
+*/

@@ -6,7 +6,8 @@ import LogoContainer from "../../components/logoContainer";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { useNavigate } from "react-router-dom";
-import Alert from '../../components/alert'
+import Alert from '../../components/alert';
+
 
 import { Container, Box, InputContainer, Message } from "./styles";
 
@@ -16,7 +17,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [alert, setAlert] = useState(undefined);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const isOpen = false;
 
   class User {
     constructor(id, password) {
@@ -27,6 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.removeItem("token");
+    localStorage.setItem("isOpen", isOpen)
   }, []);
 
   const LoginUser = async (user) => {
@@ -48,7 +51,7 @@ const Login = () => {
     }
   };
 
- 
+
   const clearAlert = () => {
     if (alert) {
       setAlert(undefined);
@@ -65,7 +68,7 @@ const Login = () => {
               icon={AiOutlineUser}
               onChange={(value) => {
                 setId(value);
-                clearAlert(); 
+                clearAlert();
               }}
               placeholder="Digite o seu usuário:"
               type={"text"}
@@ -81,7 +84,7 @@ const Login = () => {
               icon={AiOutlineUnlock}
               onChange={(value) => {
                 setPassword(value);
-                clearAlert(); 
+                clearAlert();
               }}
               placeholder="Digite a sua senha:"
               type={typePass}
