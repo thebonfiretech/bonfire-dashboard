@@ -6,6 +6,7 @@ export const ContainerButton = styled.button`
     text-transform: uppercase;
     box-sizing: border-box;
     transition: ease .2s;
+    border-radius: 3px;
     letter-spacing: 1px;
     font-weight: 800;
     cursor: pointer;

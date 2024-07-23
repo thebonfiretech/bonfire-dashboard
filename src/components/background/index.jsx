@@ -1,7 +1,7 @@
 import { Container } from './styles'
 
-const Background = ({children}) => {
-  return <Container>{children}</Container>
+const Background = ({open, children}) => {
+  return <Container open={open}>{children}</Container>
 }
 
 export default Background;

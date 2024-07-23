@@ -22,10 +22,6 @@ const Users = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const get = async () => {
-      if (!token) {
-        navigate("/");
-        return;
-      }
       try {
         const response = await Actions.getAll();
         setRemoveLoading(true);
