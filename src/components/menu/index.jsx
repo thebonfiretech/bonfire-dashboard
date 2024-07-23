@@ -3,21 +3,24 @@ import {
   AiOutlineTeam,
   AiOutlineAudit,
   AiOutlineDollarCircle,
-
   AiOutlineUsergroupAdd,
   AiOutlineNotification,
   AiOutlineFileAdd,
-  AiOutlineClose,
   AiOutlineImport,
+  AiOutlineLeft
 } from "react-icons/ai";
 
-import { MdDriveFileRenameOutline, MdOutlineSegment } from "react-icons/md";
-import { AiOutlineLeft } from 'react-icons/ai'
-import { useNavigate } from "react-router-dom";
+import {
+  MdDriveFileRenameOutline
+} from "react-icons/md";
+
 import React, { useState, useEffect } from "react";
-import ButtonMenu from "../buttonMenu";
+import { useNavigate } from "react-router-dom";
+
 import SubButtonMenu from "../subButtonMenu";
 import LogoContainer from "../logoContainer";
+import ButtonMenu from "../buttonMenu";
+
 import { Container, Logout, OpenMenu } from "./styles";
 
 const Menu = () => {
@@ -25,9 +28,9 @@ const Menu = () => {
   const navigate = useNavigate()
 
   const initialIsOpen = localStorage.getItem("isOpen") === "true";
+  const [openDropdown, setOpenDropdown] = useState(undefined)
   const [openMenu, setOpenMenu] = useState(initialIsOpen);
   const [isOpen, setIsOpen] = useState(initialIsOpen);
-  const [openDropdown, setOpenDropdown] = useState(undefined)
 
 
   useEffect(() => {
@@ -103,74 +106,68 @@ const Menu = () => {
   return (
     <Container isOpen={isOpen}>
       <section>
-      <OpenMenu isOpen={isOpen} onClick={handleClickMenu} >
-        <LogoContainer height="50px" width="50px"/>
-         {
-          isOpen && <>
-          <h1>Bonfire Tech</h1>
-          <AiOutlineLeft color={"#FFFFFF"}/>
-          </>
-         }
-        
-      
-      </OpenMenu>
-      <ButtonMenu
-        active={isOpen}
-        name="Dashboard"
-        icon={AiOutlineHome}
-        onAction={() => navigate("/dashboard")} />
-      {
-        Buttons.map((item, index) => {
-          return (
-            <section key={index}>
-              <ButtonMenu
-                onAction={() => setOpenDropdown(prev => prev == item.data.name ? undefined : item?.data?.name)}
-                open={item.data.name == openDropdown ? true : false}
-                active={isOpen}
-                dropdown={true}
-                icon={item.data.icon}
-                name={item.data.name}
-              />
-              {
-                openDropdown == item.data.name ? item?.subData?.map((subItem, subIndex) => {
-                  return (
-                    <SubButtonMenu
-                      onAction={() => navigate(subItem?.path)}
-                      active={isOpen}
-                      icon={subItem.icon}
-                      name={subItem.name}
-                      key={subIndex} />
-                  )
-                }) : ""
-              }
-            </section>
-          )
-        })
-      }
-</section>
-<section>
+        <OpenMenu isOpen={isOpen} onClick={handleClickMenu} >
+          <LogoContainer height="50px" width="50px" />
+          {
+            isOpen && <>
+              <h1>Bonfire Tech</h1>
+              <AiOutlineLeft color={"#FFFFFF"} />
+            </>
+          }
 
-<Logout
-        onClick={() => {
-          localStorage.removeItem("token"), navigate("/");
-        }}
-        isOpen={isOpen}
-        >
-        <AiOutlineImport size={20} color="#fff" />
+
+        </OpenMenu>
+        <ButtonMenu
+          active={isOpen}
+          name="Dashboard"
+          icon={AiOutlineHome}
+          onAction={() => navigate("/dashboard")} />
         {
-          isOpen ? "Sair" : ""
+          Buttons.map((item, index) => {
+            return (
+              <section key={index}>
+                <ButtonMenu
+                  onAction={() => setOpenDropdown(prev => prev == item.data.name ? undefined : item?.data?.name)}
+                  open={item.data.name == openDropdown ? true : false}
+                  active={isOpen}
+                  dropdown={true}
+                  icon={item.data.icon}
+                  name={item.data.name}
+                />
+                {
+                  openDropdown == item.data.name ? item?.subData?.map((subItem, subIndex) => {
+                    return (
+                      <SubButtonMenu
+                        onAction={() => navigate(subItem?.path)}
+                        active={isOpen}
+                        icon={subItem.icon}
+                        name={subItem.name}
+                        key={subIndex} />
+                    )
+                  }) : ""
+                }
+              </section>
+            )
+          })
         }
-      </Logout>
-        </section>
+      </section>
+      <section>
+
+        <Logout
+          onClick={() => {
+            localStorage.removeItem("token"), navigate("/");
+          }}
+          isOpen={isOpen}
+        >
+          <AiOutlineImport size={20} color="#fff" />
+          {
+            isOpen ? "Sair" : ""
+          }
+        </Logout>
+      </section>
 
     </Container>
   );
 };
 
 export default Menu;
-
-/*
-
-
- 
-*/

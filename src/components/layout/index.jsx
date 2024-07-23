@@ -1,13 +1,13 @@
-// src/components/layout/index.jsx
 import React, { useState, useEffect } from "react";
-import { Container } from "./styles";
-import Background from "../background";
-import Menu from "../menu";
 import { useNavigate } from "react-router-dom";
+
+import Background from "../background";
+import { Container } from "./styles";
+import Menu from "../menu";
 
 const Layout = () => {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -15,12 +15,12 @@ const Layout = () => {
     }
   }, []);
 
-    return (
-      <Container>
-        <Menu />
-        <Background />
-      </Container>
-    );
+  return (
+    <Container>
+      <Menu />
+      <Background />
+    </Container>
+  );
 };
 
 
