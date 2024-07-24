@@ -17,57 +17,47 @@ export const Box = styled.div`
     & > h1 {
         letter-spacing: 4px;
         font-weight: 700;
-        font-size: 110px;
+        font-size: 150px;
     }
 
     @media (max-width: 678px) {
-      padding: 0;
-      & > h1 {
-          font-size: 80px;
-      }
-     }
+        padding: 0;
+        & > h1 {
+            font-size: 80px;
+        }
+    }
 `;
 
-export const Position1 = styled.div`
-  transform: rotate(15deg);
-  margin-left: 60%;
-`;
+export const Position = styled.div`
+    transform: ${({ rotate }) => `rotate(${rotate})`};
+    margin-left: ${({ margin }) => margin};
+    margin-top: ${({ top }) => top};
 
-export const Position2 = styled.div`
-  transform: rotate(-33deg);
-  margin-left: -20%;
-`;
-
-export const Position3 = styled.div`
-  transform: rotate(-20deg);
-  margin-left: 100%;
-  margin-top: -85px;
-  
-  @media (max-width: 678px) {
-    margin-left: 95%;
-   }
+    @media (max-width: 678px) {
+        margin-left: ${({ mobileMargin }) => mobileMargin};
+    }
+        
 `;
 
 export const Message = styled.div`
- flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
 
-  & > p {
-      letter-spacing: 1px;
-      font-weight: 500;
-      font-size: 20px;
-      width: 100%;
-  }
+    & > p {
+        letter-spacing: 1px;
+        font-weight: 500;
+        font-size: 25px;
+        width: 100%;
+    }
 
-@media (max-width: 678px) {
-   & > p {
-       font-size: 18px;
-   }
- }
-  
+    @media (max-width: 678px) {
+        & > p {
+            font-size: 18px;
+        }
+    }
 `;
 
 export const Icon = styled.div`
@@ -76,11 +66,13 @@ export const Icon = styled.div`
     border-radius: 10px;
     align-items: center;
     display: flex;
-    height: 68px;
-    width: 72px;
+    height: 90px;
+    width: 95px;
 
-  @media (max-width: 678px) {
-     height: 60px;
-     width: 68px;
-   }
+    @media (max-width: 678px) {
+        height: 60px;
+        width: 68px;
+    }
 `;
+
+
