@@ -1,5 +1,5 @@
 {
-  "name": "react-vite-template",
+  "name": "bonfire-dashboard",
   "version": "1.0.0",
   "type": "module",
   "description": "Template funcional para uso do react junto ao vite e styled-components.",
