@@ -1,11 +1,19 @@
 import axios from 'axios';
 
-
-
 var token = localStorage.getItem('token');
 
+const UrlApi = () =>{
+
+  const mode = import.meta.env.VITE_MODE
+
+  console.log(mode)
+
+  return import.meta.env.VITE_API
+
+}
+
 const api = axios.create({
-  baseURL: "https://api.thebonfire.tech/v1/", 
+  baseURL: UrlApi(), 
   headers: {
     'Content-Type': 'application/json',
     'authorization': token
