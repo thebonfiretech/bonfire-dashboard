@@ -3,11 +3,11 @@ import {ContainerButton} from './styles';
 
 const Button = ({onAction, name}) => {
   return(
-    <>
+    
       <ContainerButton  onClick={onAction}>
         {name}
       </ContainerButton>
-    </>
+    
   )
 }
 

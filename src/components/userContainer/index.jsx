@@ -7,7 +7,6 @@ import {Container, UserInformation, ButtonIcon, ControlPanel, Button} from './st
 const UserContainer = ({name, onUpdate, onDelete, iconType: IconType}) => {
   const iconSize = window.innerWidth <= 678 ? 21 : 24;
   return(
-    <>
       <Container>
         <UserInformation>
             <ButtonIcon> {IconType && <IconType size={iconSize} color={"#FFFFFF"}/>}</ButtonIcon>
@@ -18,7 +17,6 @@ const UserContainer = ({name, onUpdate, onDelete, iconType: IconType}) => {
          <Button onClick={onDelete}><MdDeleteOutline color='#fff' size={iconSize}/></Button>
        </ControlPanel>
       </Container>
-    </>
   )
 }
 

@@ -3,11 +3,11 @@ import {Container} from './styles';
 
 const Label = ({name}) => {
   return(
-    <>
+    
       <Container>
         {name}
       </Container>
-    </>
+    
   )
 }
 
