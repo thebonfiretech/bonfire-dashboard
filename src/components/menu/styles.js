@@ -82,6 +82,12 @@ display: flex;
 height: auto;
 width: 100%;
 
+& > div {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
 & > h1 {
 letter-spacing: 1px;
 }
