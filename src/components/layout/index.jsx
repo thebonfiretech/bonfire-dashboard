@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Background from "../background";
+import Background from "./components/background";
 import { Container } from "./styles";
 import Menu from "../menu";
 

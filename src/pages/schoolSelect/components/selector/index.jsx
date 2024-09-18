@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Container} from './styles';
 
-import Actions from "../../actions/admin/schools";
+import Actions from "../../../../actions/admin/schools";
 
 const Selector = ({}) => {
 
