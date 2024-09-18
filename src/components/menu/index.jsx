@@ -17,9 +17,9 @@ import {
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import SubButtonMenu from "../subButtonMenu";
+import SubButtonMenu from "./components/subButtonMenu";
 import LogoContainer from "../logoContainer";
-import ButtonMenu from "../buttonMenu";
+import ButtonMenu from "./components/buttonMenu";
 
 import { Container, Logout, OpenMenu } from "./styles";
 

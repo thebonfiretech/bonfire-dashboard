@@ -4,7 +4,7 @@ import { Container, Box, Items } from "./styles";
 import { AiOutlineUser, AiOutlineRocket, AiOutlineTool } from "react-icons/ai";
 import FilterButtons from "../../components/filterButtons";
 import SearchBar from "../../components/searchBar";
-import UserContainer from "../../components/userContainer";
+import UserContainer from "./components/userContainer";
 import Actions from "../../actions/admin/user";
 import Loader from '../../components/loader';
 import { useNavigate } from "react-router-dom";

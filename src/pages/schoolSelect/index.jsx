@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import LogoContainer from "../../components/logoContainer";
-import Selector from "../../components/selector";
+import Selector from "./components/selector";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Label from "../../components/label";
